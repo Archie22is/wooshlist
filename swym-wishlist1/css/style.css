@@ -103,7 +103,7 @@
 }
 
 .wishlist-toggle svg {
-    fill:#bdbdbd;
+    fill:red;
     transition: all 200ms ease-out;
 }
 

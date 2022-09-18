@@ -63,9 +63,9 @@ function plugin_init(){
         add_action('woocommerce_before_shop_loop_item_title','wishlist_toggle',15);
         add_action('woocommerce_single_product_summary','wishlist_toggle',25);
         function wishlist_toggle(){
-
+			
             global $product;
-            echo '<span class="wishlist-title">'.esc_attr__("Add to wishlist","text-domain").'</span><a class="wishlist-toggle" data-product="'.esc_attr($product->get_id()).'" href="#" title="'.esc_attr__("Add to wishlist","text-domain").'">'.file_get_contents(plugins_url( 'images/icon.svg', __FILE__ )).'</a>';
+            echo '<a class="wishlist-toggle swym-button swym-add-to-wishlist-view-product swym-loaded" data-swaction="addToWishlist" data-image-url="'.esc_attr(get_the_post_thumbnail_url($product->get_id())).'" data-price="'.esc_attr($product->get_price()).'" data-product="'.esc_attr($product->get_id()).'" href="#" title="'.esc_attr__("Add to wishlist","text-domain").'">'.file_get_contents(plugins_url( 'images/icon.svg', __FILE__ )).'</a>';
         }
 
         // Wishlist option in the user profile

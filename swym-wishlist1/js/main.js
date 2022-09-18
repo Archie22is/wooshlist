@@ -8,7 +8,66 @@
         3. Remove product from the wishlist
 
     */
+	document.body.classList.add("swym-buttons-loaded");
+	function insertSwymScript() {
+		var swymSrcElem = document.createElement('script');
+        swymSrcElem.setAttribute('src','https://swymdevv3.azureedge.net/code/swym.js');
+		
+        document.head.appendChild(swymSrcElem);
+	}
+	insertSwymScript();
+	
+	var swymJSObject = {
+      pid: "SVNhlXQ7rIr4TxZh6u3N6VttpIg+IDDLkIzYT0xz1gg="
+    };
+    window.swymJSWCLoad = function(){
+    if(!window._swat) {
+     console.log("swymJSWCLoad", "if");
+     (function (s, w, r, e, l, a, y) {
+       r['SwymRetailerConfig'] = s;
+       r[s] = r[s] || function (k, v) {
+         r[s][k] = v;
+       };
+     })('_swrc', '', window);
+     _swrc('RetailerId', swymJSObject.pid);
+     _swrc('Callback', function(){initSwymWC();});
+   }else if(window._swat.postLoader){
+     console.log("swymJSWCLoad", "else if", swymJSObject);
+     _swrc = window._swat.postLoader;
+     _swrc('RetailerId', swymJSObject.pid);
+     _swrc('Callback', function(){initSwymWC();});
+   }else{
+     console.log("swymJSWCLoad", "else");
+     initSwymWC();
+   }
+ }
+  window.initSwymWC = function() {
+   var swat = window._swat;
+   var swymPageData = {"et": 0};
+   var regid = swat.getSwymRegistrationId();
+   if(!regid) {
+     swat.refresh(initUI(), function() { console.log("Swym - Failed to create regid"); });
+     return;
+   } else {
+      initUI();
+   }
+  }
+  
+   function initUI() {
+  	// Your UI code goes here
+  	console.log("Inside UI") ;
+   }
+  window.swymJSWCLoad();
 
+	
+	
+	
+	
+	
+	
+	
+	
+	
     Array.prototype.unique = function() {
       return this.filter(function (value, index, self) {
         return self.indexOf(value) === index;
@@ -36,7 +95,7 @@
             }
         });
     }
-
+	var opt = {}
     var shopName   = opt.shopName+'-wishlist',
         inWishlist = opt.inWishlist,
         restUrl    = opt.restUrl,
@@ -45,7 +104,7 @@
         loggedIn   = ($('body').hasClass('logged-in')) ? true : false,
         userData   = '';
 
-    if(loggedIn) {
+    if(false) {
         // Fetch current user data
         $.ajax({
             type: 'POST',
@@ -125,46 +184,57 @@
 
         currentProduct = currentProduct.toString();
 
-        if (!loggedIn && isInArray(currentProduct,wishlist)) {
-            $this.addClass('active').attr('title',inWishlist);
-        }
+//         if (!loggedIn && isInArray(currentProduct,wishlist)) {
+//             $this.addClass('active').attr('title',inWishlist);
+//         }
 
         $(this).on('click',function(e){
             e.preventDefault();
-            if (!$this.hasClass('active') && !$this.hasClass('loading')) {
+			console.log(e, currentProduct);
+			var dataSet = e.currentTarget.dataset;
+			_swat.addToWishList({
+				empi: dataSet.product,
+				epi: dataSet.product,
+				du: window.location.href,
+				pr: dataSet.price,
+				et: 4
+			}, function() {
+				console.log("Added to wooshlist...")
+			})
+//             if (!$this.hasClass('active') && !$this.hasClass('loading')) {
 
-                $this.addClass('loading');
+//                 $this.addClass('loading');
 
-                wishlist.push(currentProduct);
-                wishlist = wishlist.unique();
+//                 wishlist.push(currentProduct);
+//                 wishlist = wishlist.unique();
 
-                if (loggedIn) {
-                    // get user ID
-                    if (userData['user_id']) {
-                        $.ajax({
-                            type: 'POST',
-                            url:opt.ajaxPost,
-                            data:{
-                                action:'user_wishlist_update',
-                                user_id :userData['user_id'],
-                                wishlist :wishlist.join(','),
-                            }
-                        })
-                        .done(function(response) {
-                            onWishlistComplete($this, inWishlist);
-                        })
-                        .fail(function(data) {
-                            alert(opt.error);
-                        });
-                    }
-                } else {
+//                 if (loggedIn) {
+//                     // get user ID
+//                     if (userData['user_id']) {
+//                         $.ajax({
+//                             type: 'POST',
+//                             url:opt.ajaxPost,
+//                             data:{
+//                                 action:'user_wishlist_update',
+//                                 user_id :userData['user_id'],
+//                                 wishlist :wishlist.join(','),
+//                             }
+//                         })
+//                         .done(function(response) {
+//                             onWishlistComplete($this, inWishlist);
+//                         })
+//                         .fail(function(data) {
+//                             alert(opt.error);
+//                         });
+//                     }
+//                 } else {
 
-                    sessionStorage.setItem(shopName, wishlist.toString());
-                    onWishlistComplete($this, inWishlist);
+//                     sessionStorage.setItem(shopName, wishlist.toString());
+//                     onWishlistComplete($this, inWishlist);
 
-                }
+//                 }
 
-            }
+//             }
 
 
         });
