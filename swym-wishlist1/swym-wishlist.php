@@ -2,11 +2,11 @@
 
 /*
     Plugin Name: Swym Wishlist
-    Plugin URI: http://www.enovathemes.com
+    Plugin URI: https://swym.it/
     Description: Wishlist Plus for WooCommerce
-    Author: Enovathemes
+    Author: Swym
     Version: 1.0
-    Author URI: http://enovathemes.com
+    Author URI: https://swym.it/
 */
 
 if ( ! defined( 'ABSPATH' ) ) {
