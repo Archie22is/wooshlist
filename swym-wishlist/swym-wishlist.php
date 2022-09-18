@@ -1,9 +1,9 @@
 <?php
 
 /*
-    Plugin Name: Woocommerce wishlist
+    Plugin Name: Swym Wishlist
     Plugin URI: http://www.enovathemes.com
-    Description: Ajax wishlist for WooCommerce
+    Description: Wishlist Plus for WooCommerce
     Author: Enovathemes
     Version: 1.0
     Author URI: http://enovathemes.com
