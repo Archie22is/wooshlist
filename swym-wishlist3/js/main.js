@@ -56,6 +56,22 @@
    function initUI() {
   	// Your UI code goes here
   	console.log("Inside UI") ;
+	   window._swat.platform = {
+		   type: "woocommerce",
+		   redirectToLoginPage: function() {
+			   window.location = "/my-account";
+		   }
+	   }
+	   window._swat.fetch(function(res) {
+		   var wishlistBtns = document.querySelectorAll(".swym-add-to-wishlist-view-product");
+		   wishlistBtns.forEach(wb => {
+			  var productId = wb.getAttribute("data-product");
+		      var isWishlisted = res.filter(r => r.empi === +productId);
+     		  if (isWishlisted.length) {
+	    		  wb.classList.add("swym-added");
+		      }	 
+		   });
+	   })
    }
   window.swymJSWCLoad();
 
@@ -192,14 +208,19 @@
             e.preventDefault();
 			console.log(e, currentProduct);
 			var dataSet = e.currentTarget.dataset;
+			var imageContainer = document.querySelector(".woocommerce-product-gallery__image--placeholder");
+			var iu = imageContainer && imageContainer.firstChild.getAttribute("src");
+			var currentButton = e.currentTarget;
 			_swat.addToWishList({
 				empi: dataSet.product,
 				epi: dataSet.product,
 				du: window.location.href,
 				pr: dataSet.price,
-				et: 4
+				et: 4,
+				iu: iu || "",
+				_cv: true
 			}, function() {
-				console.log("Added to wooshlist...")
+				currentButton.classList.add("swym-added");
 			})
 //             if (!$this.hasClass('active') && !$this.hasClass('loading')) {
 

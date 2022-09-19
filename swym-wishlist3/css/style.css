@@ -136,6 +136,21 @@
     opacity:0;
 }
 
+.swym-add-to-wishlist-view-product:after {
+	font-family: 'swym-font';
+	content: '\f08a';
+	font-size: 24px;
+}
+
+.swym-add-to-wishlist-view-product.swym-added {
+	opacity: 0.7;
+	pointer-events: none;
+}
+
+.swym-add-to-wishlist-view-product.swym-added:after {
+	content: '\f004';
+}
+
 @keyframes loading {
     from {transform: rotate(0deg);}
     to {transform: rotate(360deg);}
