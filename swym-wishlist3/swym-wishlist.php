@@ -13,15 +13,6 @@ if ( ! defined( 'ABSPATH' ) ) {
     exit; // Exit if accessed directly
 }
 
-/*
-    1. Add wishlist to product
-    2. Wishlist table shortcode
-    3. Wishlist option in the user profile
-    4. Extend rest API for products
-*/
-
-
-
 add_action('init','plugin_init');
 function plugin_init(){
     if (class_exists("Woocommerce")) {
@@ -63,9 +54,8 @@ function plugin_init(){
         add_action('woocommerce_before_shop_loop_item_title','wishlist_toggle',15);
         add_action('woocommerce_single_product_summary','wishlist_toggle',25);
         function wishlist_toggle(){
-			
             global $product;
-            echo '<a class="wishlist-toggle swym-button swym-add-to-wishlist-view-product swym-loaded" data-swaction="addToWishlist" data-price="'.esc_attr($product->get_price()).'" data-product="'.esc_attr($product->get_id()).'" href="#" title="'.esc_attr__("Add to wishlist","text-domain").'"></a>';
+            echo '<a class="wishlist-toggle swym-button swym-add-to-wishlist-view-product swym-loaded" data-swaction="addToWishlist" data-price="'.esc_attr($product->get_price()).'" data-product="'.esc_attr($product->get_id()).'" href="#" data-dt="'.esc_attr($product->get_name()).'" data-du="'.esc_attr(get_permalink($product->get_id())).'" title="'.esc_attr__("Add to wishlist","text-domain").'"></a>';
         }
 
         // Wishlist option in the user profile
